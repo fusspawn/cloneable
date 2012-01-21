@@ -2,6 +2,9 @@ var http = require('http');
 var redis = require("redis");
 var express = require("express");
 var utils = require("util");
+var session_store = require("connect-redis");
+var hogan_wrapper = (require("express-hogan"));
+
 var fs = require('fs');
 var env = JSON.parse(fs.readFileSync('/home/dotcloud/environment.json', 'utf-8'));
 
@@ -9,7 +12,7 @@ var redis_client = redis.createClient(21390, "cloneable-fusspawn.dotcloud.com");
 console.log(utils.inspect(env));
 redis_client.auth(env["DOTCLOUD_REDISDB_REDIS_PASSWORD"]);
 
-var c9port = process.env.PORT;
+
 var dcport = 8080;
 
 redis_client.on("error", function (err) {
@@ -30,4 +33,8 @@ app.get("/", function(req,res) {
         console.log("loaded :" +val+" times.");    
         res.end("loaded :" +val+" times.");
     });    
+});
+
+app.get("/deploy/log", function(req, res) {
+    
 });

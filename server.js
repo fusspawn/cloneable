@@ -26,7 +26,7 @@ process.on('uncaughtException', function (err) {
 console.log("starting webserver");
 var app = express.createServer();
 app.listen(dcport);
-console.log("server started"); 
+console.log("server started"); // loggings yeahs1
 
 app.get("/", function(req,res) {
     redis_client.incr("test.pagecounts.index", function(err, val) {

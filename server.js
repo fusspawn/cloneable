@@ -3,7 +3,6 @@ var redis = require("redis");
 var express = require("express");
 var utils = require("util");
 var session_store = require("connect-redis");
-var hogan_wrapper = (require("express-hogan"));
 
 var fs = require('fs');
 var env = JSON.parse(fs.readFileSync('/home/dotcloud/environment.json', 'utf-8'));
@@ -26,7 +25,7 @@ process.on('uncaughtException', function (err) {
 console.log("starting webserver");
 var app = express.createServer();
 app.listen(dcport);
-console.log("server started"); // loggings yeahs1
+console.log("server started"); 
 
 app.get("/", function(req,res) {
     redis_client.incr("test.pagecounts.index", function(err, val) {

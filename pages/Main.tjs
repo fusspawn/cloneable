@@ -1,0 +1,23 @@
+module.exports = function(app) 
+{
+    console.log("registering awaited routes");
+    app.get("/", function (req, res) {
+        var motd_err, motd;
+        var incr_err, counter;
+        await {
+            redis_client.get("MOTD", defer(motd_err, motd));
+            redis_client.incr("ViewCount/Index", defer(incr_err, reply)); 
+        }
+        if(motd_err) {
+            console.log("motd get error: " + motd_err);
+            res.send("Error: " + motd_err);
+            return;
+        }
+        if(incr_err) {
+            console.log("motd get error: " + incr_err);
+            res.send("Error: " + incr_err);
+            return;
+        }
+        res.send("MOTD: " + motd + " /n  PageViews: " + counter);
+    });
+}

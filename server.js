@@ -28,5 +28,6 @@ console.log("server started");
 app.get("/", function(req,res) {
     redis_client.incr("test.pagecounts.index", function(err, val) {
         console.log("loaded :" +val+" times.");    
+        res.end("loaded :" +val+" times.");
     });    
 });

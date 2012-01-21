@@ -21,6 +21,6 @@ var app = express.createServer();
 app.listen(dcport);
 console.log("server started"); 
 
-app.get("/" function(req,res) {
+app.get("/", function(req,res) {
     res.end("frackit.");    
 });

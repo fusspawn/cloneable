@@ -22,5 +22,5 @@ app.listen(dcport);
 console.log("server started"); 
 
 app.get("/", function(req,res) {
-    res.end("frackit....");    
+    res.end("wtf");    
 });

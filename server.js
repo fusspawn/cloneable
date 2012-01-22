@@ -31,11 +31,11 @@ app.configure(function() {
 
 console.log("server started"); 
 
-app.get("/api/post/markethistory", function(req,res) {
+app.get("api/post/markethistory", function(req,res) {
     console.log("history hit..");
 });
 
-app.get("/api/post/market", function(req, res) {
+app.get("api/post/market", function(req, res) {
     console.log("market hit..");
 });
 

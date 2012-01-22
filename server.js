@@ -42,10 +42,10 @@ app.use(express.cookieParser());
 console.log("server started"); 
 
 
-app.post("/api/post/market-history", function(req,res) {
+app.get("/api/post/market-history", function(req,res) {
     console.log("history hit..");
 });
-app.post("/api/post/market", function(req, res) {
+app.get("/api/post/market", function(req, res) {
     console.log("market hit..");
 });
 

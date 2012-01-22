@@ -1,14 +1,9 @@
-var http = require('http');
 var redis = require("redis");
 var express = require("express");
-var utils = require("util");
-var session_store = require("connect-redis");
-
 var fs = require('fs');
 var env = JSON.parse(fs.readFileSync('/home/dotcloud/environment.json', 'utf-8'));
 
 var redis_client = redis.createClient(21390, "cloneable-fusspawn.dotcloud.com");
-console.log(utils.inspect(env));
 redis_client.auth(env["DOTCLOUD_REDISDB_REDIS_PASSWORD"]);
 
 
@@ -36,8 +31,7 @@ app.configure(function() {
 
 console.log("server started"); 
 
-
-app.get("/api/post/market-history", function(req,res) {
+app.get("/api/post/markethistory", function(req,res) {
     console.log("history hit..");
 });
 

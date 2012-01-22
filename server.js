@@ -25,6 +25,27 @@ process.on('uncaughtException', function (err) {
 console.log("starting webserver");
 var app = express.createServer();
 app.listen(dcport);
+
+app.configure(function() {
+app.use(express.cookieParser());
+    app.use(express.session({
+        secret: "S3ssIons_are_aw3s0mely_fast_1n_r3d1s",
+        store: new redis_session_store({client: redis_client})
+    }));
+    
+    app.use(express.static(__dirname + '/static'));
+    app.use(express.bodyParser());
+	app.use(app.router);
+	app.use(express.errorHandler({dumpExceptions:true, showStack:true}));
+});
+
 console.log("server started"); 
 
+
+app.post("/api/post/market-history", function(req,res) {
+    console.log("history hit..");
+});
+app.post("/api/post/market", function(req, res) {
+    console.log("market hit..");
+});
 

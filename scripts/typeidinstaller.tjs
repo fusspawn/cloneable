@@ -10,9 +10,10 @@ script.run = function(req, res, redis_client)
     {
         var ll = new lazy(fs.createReadStream('../tmp_data/typeids.txt'))
             ll.lines.forEach(function(line){
-                 line = line.replace(/[\s:]/g, " ");
-                 var parts = line.split(" ");
-                 var id = parts[0];
+                 var parts = line.split(/\s\s*/g);
+                 var id = parts.shift();
+                 var name = parts.join(" ");
+                 redis_client.set("ccp.static.type_ids."+id, name);
                  res.write("saving: " + id);
                  defer();
             });

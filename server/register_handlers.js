@@ -16,7 +16,7 @@ handlers.register_handlers = function(app, redis_client)
         
         app.get("/market/display_known", function(req, res) {
             market_api.get_known_orders(redis_client, function(err, data) {
-                res.send(JSON.stringify(data));    
+                res.render("./templates/knownorders.ejs", {orders: data});   
             });
         });
         

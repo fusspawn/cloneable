@@ -6,7 +6,7 @@ script.run = function(req, res, redis_client)
 {
     console.log("file loading: " + "../tmp_data/typeids.txt");
     
-    async 
+    await 
     {
         var ll = new lazy(fs.createReadStream('../tmp_data/typeids.txt'))
             ll.lines.forEach(function(line){

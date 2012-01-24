@@ -3,7 +3,6 @@ var express = require("express");
 var fs = require('fs');
 var env = JSON.parse(fs.readFileSync('/home/dotcloud/environment.json', 'utf-8'));
 var redis_client = redis.createClient(21390, "cloneable-fusspawn.dotcloud.com");
-require ('tamejs').register ();
 
 redis_client.auth(env["DOTCLOUD_REDISDB_REDIS_PASSWORD"]);
 
@@ -62,5 +61,5 @@ console.log("server accepting connections");
 app.get("/admin/install/typeids", function(req, res) {
     res.write("Starting TypeID update at: " + new Date().toString() + "\r\n");
     res.write("Running Async Script");
-    require("typeidinstaller.tjs").run(req, res);
+    require("./scripts/typeidinstaller.js").run(req, res);
 });

@@ -62,5 +62,5 @@ console.log("server accepting connections");
 app.get("/admin/install/typeids", function(req, res) {
     res.write("Starting TypeID update at: " + new Date().toString() + "\r\n");
     res.write("Running Async Script");
-    require("/scripts/typeidinstaller.tjs").run(req, res);
+    require("typeidinstaller.tjs").run(req, res);
 });

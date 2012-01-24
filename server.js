@@ -30,12 +30,22 @@ app.configure(function() {
 
 console.log("server started"); 
 
+var last_hist = "";
+app.get("/api/post/markethistory/last", function(req, res) {
+    res.send(last_hist);
+});
 app.post("/api/post/markethistory", function(req, res) {
+    last_hist = req.param("data", "empty");
     console.log("history hit with: " + req.param("data", "empty"));
     res.end("History Hit");
 });
 
+var last_market = "";
+app.get("/api/post/market/last", function(req, res) {
+    res.send(last_market);
+});
 app.post("/api/post/market", function(req, res) {
+    last_market = req.param("data", "empty");
     console.log("market hit with: "  + req.param("data", "empty"));
     res.end("Market Hit");
 });

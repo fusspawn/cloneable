@@ -41,6 +41,6 @@ market_api.get_known_orders = function(redis_client, callback) {
             callback("err: unable to list orders: " + err, null);
         }
         
-        return reply;
+        callback(null, reply);
     });
 };

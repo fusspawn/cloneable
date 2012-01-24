@@ -62,3 +62,9 @@ app.get("/admin/install/typeids", function(req, res) {
     res.write("Running Async Script");
     require("./scripts/typeidinstaller.js").run(req, res, redis_client);
 });
+
+app.get("/admin/install/regionids", function(req, res) {
+    res.write("Starting TypeID update at: " + new Date().toString() + "\r\n");
+    res.write("Running Async Script");
+    require("./scripts/regioninstaller.js").run(req, res, redis_client);
+});

@@ -10,7 +10,7 @@ script.run = function(req, res, redis_client)
                  var parts = line.toString().split(/\s\s*/g);
                  var id = parts.shift();
                  var name = parts.join(" ");
-                 redis_client.set("ccp.static.type_ids."+id, name);
+                 redis_client.set("ccp.static.type_ids."+id, name); //ccp.static.type_ids.32415
                  res.write("saving: " + id);
     }); //
 };

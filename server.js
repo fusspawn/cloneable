@@ -3,6 +3,8 @@ var express = require("express");
 var fs = require('fs');
 var env = JSON.parse(fs.readFileSync('/home/dotcloud/environment.json', 'utf-8'));
 var redis_client = redis.createClient(21390, "cloneable-fusspawn.dotcloud.com");
+require ('tamejs').register ();
+
 redis_client.auth(env["DOTCLOUD_REDISDB_REDIS_PASSWORD"]);
 
 
@@ -34,6 +36,7 @@ var last_hist = "";
 app.get("/api/post/markethistory/last", function(req, res) {
     res.send(last_hist);
 });
+
 app.post("/api/post/markethistory", function(req, res) {
     last_hist = req.param("data", "empty");
     console.log("history hit with: " + req.param("data", "empty"));
@@ -44,11 +47,20 @@ var last_market = "";
 app.get("/api/post/market/last", function(req, res) {
     res.send(last_market);
 });
+
 app.post("/api/post/market", function(req, res) {
     last_market = req.param("data", "empty");
     console.log("market hit with: "  + req.param("data", "empty"));
     res.end("Market Hit");
 });
-
 console.log("server accepting connections");
 
+
+
+
+
+app.get("/admin/install/typeids", function(req, res) {
+    res.write("Starting TypeID update at: " + new Date().toString() + "\r\n");
+    res.write("Running Async Script");
+    require("./scripts/typeidinstaller.tjs").run(req, res);
+});

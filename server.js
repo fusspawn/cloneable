@@ -32,12 +32,12 @@ app.configure(function() {
 console.log("server started"); 
 
 app.post("/api/post/markethistory", function(req, res) {
-    console.log("history hit..");
+    console.log("history hit with: " + req.params.data);
     res.end("History Hit");
 });
 
 app.post("/api/post/market", function(req, res) {
-    console.log("market hit..");
+    console.log("market hit with: " + req.params.data);
     res.end("Market Hit");
 });
 

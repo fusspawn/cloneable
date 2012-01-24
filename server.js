@@ -21,7 +21,7 @@ console.log("starting webserver");
 var app = express.createServer();
 app.listen(dcport);
 
-app.configure(function() { // fucking git
+app.configure(function() { 
     app.use(express.cookieParser());
     app.use(express.static(__dirname + '/static'));
     app.use(express.bodyParser());

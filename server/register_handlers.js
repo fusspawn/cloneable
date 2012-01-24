@@ -3,6 +3,11 @@ var market_api = require("./api/market.js");
 
 handlers.register_handlers = function(app, redis_client)
 {
+        app.set('view options', {
+          layout: false
+        });
+    
+    
         app.post("/api/post/markethistory", function(req, res) {
             market_api.market_history_upload(req.param("data", null), redis_client);
             res.end("History Hit");

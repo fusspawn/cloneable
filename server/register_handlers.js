@@ -1,5 +1,5 @@
 var handlers = module.exports = {};
-var market_api = require("./api/market.js");
+var market_api = require("api/market.js");
 
 handlers.register_handlers = function(app, redis_client)
 {

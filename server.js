@@ -21,7 +21,7 @@ console.log("starting webserver");
 var app = express.createServer();
 app.listen(dcport);
 
-app.configure(function() {
+app.configure(function() { // fucking git
     app.use(express.cookieParser());
     app.use(express.static(__dirname + '/static'));
     app.use(express.bodyParser());
@@ -32,12 +32,12 @@ app.configure(function() {
 console.log("server started"); 
 
 app.post("/api/post/markethistory", function(req, res) {
-    console.log("history hit with: " + console.log(utils.inspect(req.params));
+    console.log("history hit with: " + utils.inspect(req.params));
     res.end("History Hit");
 });
 
 app.post("/api/post/market", function(req, res) {
-    console.log("market hit with: "  + console.log(utils.inspect(req.params));
+    console.log("market hit with: "  + utils.inspect(req.params));
     res.end("Market Hit");
 });
 

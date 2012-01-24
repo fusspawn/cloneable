@@ -3,7 +3,6 @@ var express = require("express");
 var fs = require('fs');
 var env = JSON.parse(fs.readFileSync('/home/dotcloud/environment.json', 'utf-8'));
 var redis_client = redis.createClient(21390, "cloneable-fusspawn.dotcloud.com");
-require ('tamejs').register ();
 redis_client.auth(env["DOTCLOUD_REDISDB_REDIS_PASSWORD"]);
 
 

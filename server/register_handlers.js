@@ -4,7 +4,7 @@ var market_api = require("./api/market.js");
 handlers.register_handlers = function(app, redis_client)
 {
         app.set('view options', {
-          layout: false
+          layout: true
         });
 
         app.post("/api/post/markethistory", function(req, res) {
@@ -37,7 +37,7 @@ handlers.register_handlers = function(app, redis_client)
                 }
                 
                 market_api.get_name(redis_client, order_data.typeID, function(err, data) {
-                    res.render("displayorder.ejs", {order: order_data, date: new Date().toString(), name: data, layout: true});  
+                    res.render("displayorder.ejs", {order: order_data, date: new Date().toString(), name: data});  
                 });
             });    
         });

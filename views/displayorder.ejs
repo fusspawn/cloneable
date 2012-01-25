@@ -1,6 +1,6 @@
 <html lang="en"><head>
     <meta charset="utf-8">
-    <title> Market :: KnownOrders </title>
+    <title> Market :: Order (<%= order.orderID %>) </title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -25,7 +25,6 @@
       .container {
         width: 820px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
       }
-
       /* The white background content wrapper */
       .content {
         background-color: #fff;
@@ -38,14 +37,12 @@
            -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
                 box-shadow: 0 1px 2px rgba(0,0,0,.15);
       }
-
       /* Page header tweaks */
       .page-header {
         background-color: #f5f5f5;
         padding: 20px 20px 10px;
         margin: -20px -20px 20px;
       }
-
       /* Styles you shouldn't keep as they are for displaying this base example only */
       .content .span10,
       .content .span4 {
@@ -57,11 +54,9 @@
         padding-left: 19px;
         border-left: 1px solid #eee;
       }
-
       .topbar .btn {
         border: 0;
       }
-
     </style>
 
     <!-- Le fav and touch icons -->
@@ -90,17 +85,23 @@
         </div>
     
         <div class="container">
-    
           <div class="content">
             <div class="page-header">
-              <h1>Market::<small>Known Orders</small></h1>
+              <h1>Market <small> OrderID (<%= order.orderID %>)</small></h1>
             </div>
             <div class="row">
               <div class="span10">
                 <h2>Known Orders</h2>
-                    <% for(var i=0; i<orders.length; i++) {%>
-                        <li><%= orders[i].split(".")[3] %> </li>
-                    <% } %>
+                    <ul>
+                        <li> TypeID: <%= order.typeID %> </li>
+                        <li> Price: <%= order.price %> </li>
+                        <li> Region: <%= order.regionID %> </li>
+                        <li> Type: <% if(order.bid) { %> 
+                                        Buy Order
+                                   <% } else { %> 
+                                        Sell Order
+                                   <% } %>
+                    </ul>
               </div>
               <div class="span4">
                 <h3>Last Updated At: </h3>

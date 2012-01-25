@@ -1,6 +1,6 @@
 <html lang="en"><head>
     <meta charset="utf-8">
-    <title> Market :: KnownOrders </title>
+    <title> Ooops! </title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -97,10 +97,11 @@
             </div>
             <div class="row">
               <div class="span10">
-                <h2>Known Orders</h2>
-                    <% for(var i=0; i<orders.length; i++) {%>
-                        <li><%= orders[i].split(".")[3] %> </li>
-                    <% } %>
+                <p class="alert-message error">
+                    <strong> Ooops Something went wrong! </strong>
+                    Heres the message: </br>
+                    <%= error_message %>
+                </p>
               </div>
               <div class="span4">
                 <h3>Last Updated At: </h3>

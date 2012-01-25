@@ -99,7 +99,8 @@
               <div class="span10">
                 <h2>Known Orders</h2>
                     <% for(var i=0; i<orders.length; i++) {%>
-                        <li><%= orders[i].split(".")[3] %> </li>
+                        <li><a href="./display_order?orderID=<%= orders[i].split(".")[3] %>"> 
+                            OrderID:  <%= orders[i].split(".")[3] %>  </a></li>
                     <% } %>
               </div>
               <div class="span4">

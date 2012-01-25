@@ -29,7 +29,8 @@ handlers.register_handlers = function(app, redis_client)
         });
         
         app.get("/market/display_order", function(req, res) {
-            market_api.get_order(redis_client, function(err, data) {
+            var orderID = req.param("orderID", 0);
+            market_api.get_order(orderID, redis_client, function(err, data) {
                 if(err) {
                     res.render("fuck.ejs", {error_message: err});
                     return;

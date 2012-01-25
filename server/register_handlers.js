@@ -35,7 +35,7 @@ handlers.register_handlers = function(app, redis_client)
                     res.render("fuck.ejs", {error_message: err});
                     return;
                 }
-                res.render("displayorder.ejs", {order: data, date: new Date().toString()});  
+                res.render("displayorder.ejs", {order: data, date: new Date().toString(), name: market_api.get_name(redis_client, data.typeID)});  
             });    
         });
         

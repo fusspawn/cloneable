@@ -8,7 +8,6 @@ market_api.market_upload = function(data, redis_client) {
         redis_client.set("ccp.dynamic.market_order."+data.orderID, JSON.stringify(data)); //ccp.dynamic.market_order.2417444789
         console.log("we just saved orderID: " +data.orderID+ " to redis :D");
     });
-    
     csv_parser.parse(data);
 };
 
@@ -29,7 +28,6 @@ market_api.get_order = function(orderid, redis_client, callback) {
             console.log("unable to find order_id: "+orderid);
             callback("unable to find order_id: "+orderid, null);
         }
-        
         callback(null, JSON.parse(reply));
     });
 };
@@ -40,7 +38,6 @@ market_api.get_known_orders = function(redis_client, callback) {
             console.log("err: unable to list orders: " + err);
             callback("err: unable to list orders: " + err, null);
         }
-        
         callback(null, reply);
     });
 };

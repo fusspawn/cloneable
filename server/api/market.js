@@ -45,8 +45,8 @@ market_api.get_known_orders = function(redis_client, callback) {
     });
 };
 
-market_api.get_name = function(redis_client, typeID) {
+market_api.get_name = function(redis_client, typeID, callback) {
     redis_client.get("ccp.static.type_ids."+typeID, function(err, reply) {
-        return reply;    
+        callback(err, reply);    
     });
 };

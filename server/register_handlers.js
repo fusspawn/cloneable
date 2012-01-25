@@ -30,14 +30,14 @@ handlers.register_handlers = function(app, redis_client)
         
         app.get("/market/display_order", function(req, res) {
             var orderID = req.param("orderID", 0);
-            market_api.get_order(orderID, redis_client, function(err, data) {
+            market_api.get_order(orderID, redis_client, function(err, order_data) {
                 if(err) {
                     res.render("fuck.ejs", {error_message: err});
                     return;
                 }
                 
                 market_api.get_name(redis_client, data.typeID, function(err, data) {
-                    res.render("displayorder.ejs", {order: data, date: new Date().toString(), name: data});  
+                    res.render("displayorder.ejs", {order: order_data, date: new Date().toString(), name: data});  
                 });
             });    
         });

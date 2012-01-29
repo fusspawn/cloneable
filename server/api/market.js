@@ -1,7 +1,5 @@
 var market_api = module.exports = {};
 var csv = require("ya-csv");
-var mongoose = require("mongoose");
-mongoose.connect(env["DOTCLOUD_MONGO_MONGODB_URL"]);
 
 market_api.db = {};
 market_api.db.MarketOrderSchema = new mongoose.Schema({
@@ -26,7 +24,7 @@ market_api.db.MarketOrderSchema = new mongoose.Schema({
     stationName     : String,
 });
 
-market_api.db.MarketOrder = mongoose.Model("MarketOrder", market_api.db.MarketOrderSchema);
+mongoose.Model("MarketOrder", market_api.db.MarketOrderSchema);
 
 market_api.market_upload = function(data, redis_client) {
     var csv_parser  = csv.createCsvStreamReader({ columnsFromHeader: true });

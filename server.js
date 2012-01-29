@@ -1,7 +1,7 @@
 var redis = require("redis");
-var express = require("express");
-var fs = require('fs');
-var env = JSON.parse(fs.readFileSync('/home/dotcloud/environment.json', 'utf-8'));
+express = require("express");
+fs = require('fs');
+env = JSON.parse(fs.readFileSync('/home/dotcloud/environment.json', 'utf-8'));
 var redis_client = redis.createClient(21390, "cloneable-fusspawn.dotcloud.com");
 redis_client.auth(env["DOTCLOUD_REDISDB_REDIS_PASSWORD"]);
 

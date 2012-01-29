@@ -32,7 +32,7 @@ market_api.market_upload = function(data, redis_client) {
     var csv_parser  = csv.createCsvStreamReader({ columnsFromHeader: true });
     csv_parser.addListener('data', function(data) {
         redis_client.set("ccp.dynamic.market_order."+data.orderID, JSON.stringify(data)); //ccp.dynamic.market_order.2417444789
-        var mongo_order = new market_api.db.MarketOrder(data);
+        var mongo_order = new mongoose.Model("Market Order"); 
         mongo_order.save(function(err) {
             if(err)
                 console.log("Unable to Save MongoDB order");

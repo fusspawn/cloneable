@@ -20,7 +20,7 @@ process.on('uncaughtException', function (err) {
 });
 
 console.log("starting webserver");
-var app = express.createServer();
+app = express.createServer();
 app.listen(dcport);
 
 app.configure(function() { 

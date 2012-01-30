@@ -17,7 +17,9 @@ console.log = function(message) {
 };
 
 mongoose = require("mongoose");
-//mongoose.connect(env["DOTCLOUD_MONGO_MONGODB_URL"]);
+var mongoose_url = env["DOTCLOUD_MONGO_MONGODB_URL"];
+console.log("Connection Mongo to: " + mongoose_url);
+mongoose.connect(mongoose_url);
 
 
 var dcport = 8080;

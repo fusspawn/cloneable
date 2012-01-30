@@ -1,6 +1,6 @@
 app.get("/ships/admin/new", function(req, res) {
     console.log("/ships/admin/new request received");
-    res.render("ship/create.ejs");
+    res.render("ship/create.ejs", {error_message: null, success_message: null});
 });
 
 app.post("/ships/admin/create_new", function(req, res) {    

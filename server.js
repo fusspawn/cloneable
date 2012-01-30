@@ -45,6 +45,6 @@ app.configure(function() {
 });
 
 console.log("server started"); 
-//require("./server/register_handlers.js").register_handlers(app, redis_client);
+require("./server/register_handlers.js").register_handlers(app, redis_client);
 require("./routes");        
 console.log("server accepting connections");

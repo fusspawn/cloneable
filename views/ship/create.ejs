@@ -2,11 +2,11 @@
     <h1>Ships <small> New </small></h1>
 </div>
 
-<% if(error_message) { %>
+<% if(error_message != undefined) { %>
 <div class="alert-message error> <%= error_message %> </div>
 <% } %>
 
-<% if(success_message) { %>
+<% if(success_message != undefined) { %>
 <div class="alert-message success> <%= success_message %> </div>
 <% } %>
 

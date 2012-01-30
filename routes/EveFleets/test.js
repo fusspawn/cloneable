@@ -3,8 +3,7 @@ app.get("/ships/admin/new", function(req, res) {
     res.render("ship/create.ejs");
 });
 
-app.post("/ships/admin/create_new", function(req, res) {
-    
+app.post("/ships/admin/create_new", function(req, res) {    
     var Ship = new mongoose.model("ShipBase");
     Ship.ship_name = req.param("ship_name", "NameNotFound");
     Ship.save(function(err) {

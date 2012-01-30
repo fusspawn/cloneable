@@ -1,1 +1,2 @@
-require("./test.js"); //
+require("./models");
+require("./test.js");      

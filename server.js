@@ -9,12 +9,11 @@ redis_client.auth(env["DOTCLOUD_REDISDB_REDIS_PASSWORD"]);
 var loggly = require('loggly')
 var config = { subdomain: "fusspawn" };
 var client = loggly.createClient(config);
-//client.log('71da15cd-2a5c-4f13-87f5-55f5f8fe865d', 'One small step for man, one giant leap for JavaScript.')
 
 var oldlogger = console.log;
 console.log = function(message) {
     oldlogger(message);
-    client.log('71da15cd-2a5c-4f13-87f5-55f5f8fe865d', message);
+    client.log(env['LOGGLY_HTTP_KEY'], message);
 };
 
 mongoose = require("mongoose");

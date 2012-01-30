@@ -24,13 +24,13 @@ market_api.db.MarketOrderSchema = new mongoose.Schema({
     stationName     : String,
 });
 
-mongoose.Model("MarketOrder", market_api.db.MarketOrderSchema);
+mongoose.model("MarketOrder", market_api.db.MarketOrderSchema);
 
 market_api.market_upload = function(data, redis_client) {
     var csv_parser  = csv.createCsvStreamReader({ columnsFromHeader: true });
     csv_parser.addListener('data', function(data) {
         redis_client.set("ccp.dynamic.market_order."+data.orderID, JSON.stringify(data)); //ccp.dynamic.market_order.2417444789
-        var mongo_order = new mongoose.Model("Market Order"); 
+        var mongo_order = new mongoose.model("Market Order"); 
         mongo_order.save(function(err) {
             if(err)
                 console.log("Unable to Save MongoDB order");

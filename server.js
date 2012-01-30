@@ -6,7 +6,7 @@ var redis_client = redis.createClient(21390, "cloneable-fusspawn.dotcloud.com");
 redis_client.auth(env["DOTCLOUD_REDISDB_REDIS_PASSWORD"]);
 
 mongoose = require("mongoose");
-mongoose.connect(env["DOTCLOUD_MONGO_MONGODB_URL"]);
+//mongoose.connect(env["DOTCLOUD_MONGO_MONGODB_URL"]);
 
 
 var dcport = 8080;
@@ -33,5 +33,5 @@ app.configure(function() {
 
 console.log("server started"); 
 require("./server/register_handlers.js").register_handlers(app, redis_client);
-require("./routes");
+require("./routes");        
 console.log("server accepting connections");

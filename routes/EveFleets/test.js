@@ -14,6 +14,6 @@ app.post("/ships/admin/create_new", function(req, res) {
         }    
         
         console.log("saved new shipbase to mongo");
-        res.render("ship/create.ejs", {error_message: null, success_message: "Awesome, Saved!"}});
+        res.render("ship/create.ejs", {error_message: null, success_message: "Awesome, Saved!"});
     });
 });

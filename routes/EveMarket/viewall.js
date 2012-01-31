@@ -1,7 +1,7 @@
 app.get("/market/orders/view/all", function(req, res) {
     var model = mongoose.model("market_order");
     console.log("pulling all the mongo docs from the store <3");
-    model.find({}).each(function (err, docs) {
+    model.find({}, function (err, docs) { // We honestly dont need to render each item lols..
         console.log("query response");
         if(err) {
             console.log(err);

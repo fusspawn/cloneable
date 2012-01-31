@@ -2,7 +2,7 @@ var csv = require("ya-csv");
 var market_order = mongoose.model("market_order");
 
 
-
+//
 app.post("/api/post/market", function(req, res) {
     console.log("got market upload request.");
     var csv_string = req.param("data", null);
@@ -21,9 +21,8 @@ app.post("/api/post/market", function(req, res) {
             }   
             
             console.log("Saved order, updating redis lastorders");
-            redis_client.lpush("market.last_updated_types", order.typeID);
             res.send("ok");
-        }); //
+        }); 
     });
     
     console.log("initing parser");

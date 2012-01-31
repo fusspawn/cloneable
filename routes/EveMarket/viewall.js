@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 app.get("/market/orders/view/all", function(req, res) {
     var model = mongoose.model("market_order");
+    console.log("pulling all the mongo docs from the store <3");
     model.find({}, function (err, docs) {
         if(err) {
             console.log(err);
@@ -8,6 +9,8 @@ app.get("/market/orders/view/all", function(req, res) {
             return;
         }
         
+        console.log("all the docs loaded aok. rendering");
         res.render("./market/showall.ejs", {orders: docs});
+        console.log("page rendered.");
     });
 });

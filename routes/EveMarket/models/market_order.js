@@ -1,4 +1,3 @@
-var mongoose = require("mongoose");
 mongoose.model("market_order", new mongoose.Schema({
     price           : Number,
     volRemaining    : Number,

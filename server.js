@@ -20,7 +20,7 @@ redis_client.auth(env["DOTCLOUD_REDISDB_REDIS_PASSWORD"]);
 
 //Doc Store
 mongoose = require("mongoose");
-var mongoose_url = env["DOTCLOUD_MONGO_MONGODB_URL"];
+var mongoose_url = env["DOTCLOUD_MONGO_MONGODB_URL"] + "/admin"; //fuck this..
 console.log("connecting Mongo to: " + mongoose_url);
 mongoose.connect(mongoose_url, function(err) {
     if(err)

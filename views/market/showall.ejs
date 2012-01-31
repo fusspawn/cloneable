@@ -25,20 +25,20 @@
         <tbody>
             <% orders.forEach(function(order) { %>
                     <tr>
-                        <td> <%= order.price %> </td>
-                        <td> <%= order.volRemaining %> </td>
-                        <td> <%= order.typeID %> </td>
-                        <td> <%= order.range %> </td>
-                        <td> <%= order.orderID %> </td>
-                        <td> <%= order.volEntered %> </td>
-                        <td> <%= order.minVolume %> </td>
-                        <td> <%= order.bid %> </td>
-                        <td> <%= order.issued %> </td>
-                        <td> <%= order.duration %> </td>
-                        <td> <%= order.stationID %> </td>
-                        <td> <%= order.regionID %> </td>
-                        <td> <%= order.solarSystemID %> </td>
-                        <td> <%= order.jumps %> </td>   
+                        <td> <%= order["price"] %> </td>
+                        <td> <%= order["volRemaining"] %> </td>
+                        <td> <%= order["typeID"] %> </td>
+                        <td> <%= order["range"] %> </td>
+                        <td> <%= order["orderID"] %> </td>
+                        <td> <%= order["volEntered"] %> </td>
+                        <td> <%= order["minVolume"] %> </td>
+                        <td> <%= order["bid"] %> </td>
+                        <td> <%= order["issued"] %> </td>
+                        <td> <%= order["duration"] %> </td>
+                        <td> <%= order["stationID"] %> </td>
+                        <td> <%= order["regionID"] %> </td>
+                        <td> <%= order["solarSystemID"] %> </td>
+                        <td> <%= order["jumps"] %> </td>   
                     </tr>
             <% }); %>
         <tbody>

@@ -12,6 +12,22 @@ app.post("/api/post/market", function(req, res) {
         var order = new market_order();
         merge(order, data);
         console.log("merged item to mongoose model.");
+        
+        order.price  = data.price;
+        order.volRemaining = data.volRemaining;
+        order.typeID  = data.typeID;
+        order.range   = data.range;
+        order.orderID = data.orderID;
+        order.volEntered = data.volEntered;
+        order.minVolume = data.minVolume;
+        order.bid = data.bid;
+        order.issued  = data.issues;
+        order.duration = data.duration;
+        order.stationID  = data.stationID;
+        order.regionID = data.regionID;
+        order.solarSystemID  = data.solarSystemID = data.solarSystemID;
+        order.jumps  = data.jumps;
+        
         console.log("saving.");
         order.save(function(err) {
             if(err) {
@@ -34,8 +50,18 @@ app.post("/api/post/markethistory", function(req, res) {
 });
 
 function merge(obj, json) {
-    for (var i in json) {
-        if(obj.hasOwnProperty(i))
-            obj[i] = json[i];
-    }
+    obj.price  = json.price;
+    obj.volRemaining = json.volRemaining;
+    obj.typeID  = json.typeID;
+    obj.range   = json.range;
+    obj.orderID = json.orderID;
+    obj.volEntered = json.volEntered;
+    obj.minVolume = json.minVolume;
+    obj.bid = json.bid;
+    obj.issued  = json.issues;
+    obj.duration = json.duration;
+    obj.stationID  = json.stationID;
+    obj.regionID = json.regionID;
+    obj.solarSystemID  = json.solarSystemID = json.solarSystemID;
+    obj.jumps  = json.jumps;
 }

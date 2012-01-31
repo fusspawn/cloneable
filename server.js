@@ -14,7 +14,7 @@ console.log = function(message) {
 };
 
 
-//Redis
+//Redis2
 redis_client = redis.createClient(21390, "cloneable-fusspawn.dotcloud.com");
 redis_client.auth(env["DOTCLOUD_REDISDB_REDIS_PASSWORD"]);
 

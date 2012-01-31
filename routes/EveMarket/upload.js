@@ -12,6 +12,8 @@ app.post("/api/post/market", function(req, res) {
         var order = new market_order();
         merge(order, data);
         console.log("merged item to mongoose model.");
+        console.log(json.stringify(data));
+        
         
         order.price  = data.price;
         order.volRemaining = data.volRemaining;

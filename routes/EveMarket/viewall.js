@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-app.get("market/orders/view/all", function(req, res) {
+app.get("/market/orders/view/all", function(req, res) {
     var model = mongoose.model("market_order");
     model.find({}, function (err, docs) {
         if(err) {

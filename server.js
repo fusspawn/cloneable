@@ -3,13 +3,6 @@ var express = require("express");
 var fs = require('fs');
 env = JSON.parse(fs.readFileSync('/home/dotcloud/environment.json', 'utf-8'));
 
-//Redis
-redis_client = redis.createClient(21390, "cloneable-fusspawn.dotcloud.com");
-redis_client.auth(env["DOTCLOUD_REDISDB_REDIS_PASSWORD"]);
-
-//Doc Store
-mongoose = require("mongoose");
-
 //Logging
 var loggly = require('loggly');
 var config = { subdomain: "fusspawn" };
@@ -20,6 +13,19 @@ console.log = function(message) {
     client.log(env['LOGGLY_HTTP_KEY'], message);
 };
 
+
+//Redis
+redis_client = redis.createClient(21390, "cloneable-fusspawn.dotcloud.com");
+redis_client.auth(env["DOTCLOUD_REDISDB_REDIS_PASSWORD"]);
+
+//Doc Store
+mongoose = require("mongoose");
+var mongoose_url = env["DOTCLOUD_MONGO_MONGODB_URL"];
+console.log("connecting Mongo to: " + mongoose_url);
+mongoose.connect(mongoose_url, function(err) {
+    if(err)
+        console.log("mongoose connect failed: "+ err);
+});
 
 //Error Handling
 var dcport = 8080;

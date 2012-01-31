@@ -1,22 +1,6 @@
 var csv = require("ya-csv");
 var mongoose = require("mongoose");
-
-var market_order = mongoose.model("market_order", new mongoose.Schema({
-    price           : Number,
-    volRemaining    : Number,
-    typeID          : Number,
-    range           : Number,
-    orderID         : Number,
-    volEntered      : Number,
-    minVolume       : Number, 
-    bid             : Number,
-    issued          : Date,
-    duration        : Date,
-    stationID       : Number,
-    regionID        : Number,
-    solarSystemID   : Number,
-    jumps           : Number,
-}));
+var market_order = mongoose.model("market_order");
 
 
 
@@ -37,7 +21,8 @@ app.post("/api/post/market", function(req, res) {
                 return;
             }   
             
-            console.log("Saved order");
+            console.log("Saved order, updating redis lastorders");
+            redis_client.lpush("market.last_updated_types", order.typeID);
             res.send("ok");
         }); //
     });

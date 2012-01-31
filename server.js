@@ -9,9 +9,6 @@ redis_client.auth(env["DOTCLOUD_REDISDB_REDIS_PASSWORD"]);
 
 //Doc Store
 mongoose = require("mongoose");
-var mongoose_url = env["DOTCLOUD_MONGO_MONGODB_URL"];
-console.log("Connection Mongo to: " + mongoose_url);
-mongoose.connect(mongoose_url);
 
 //Logging
 var loggly = require('loggly');

@@ -1,7 +1,8 @@
 var mongoose = require("mongoose");
 var mongoose_url = env["DOTCLOUD_MONGO_MONGODB_URL"];
-console.log("Connection Mongo to: " + mongoose_url);
-mongoose.createConnection(mongoose_url);
+
+console.log("connecting Mongo to: " + mongoose_url);
+mongoose.connect(mongoose_url);
 
 app.get("/market/orders/view/all", function(req, res) {
     var model = mongoose.model("market_order");

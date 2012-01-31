@@ -21,15 +21,15 @@ var market_order = mongoose.model("market_order", new mongoose.Schema({
 
 
 app.post("/api/post/market", function(req, res) {
-    console.log("got market upload request");
+    console.log("got market upload request.");
     var csv_string = req.param("data", null);
     var csv_parser  = csv.createCsvStreamReader({ columnsFromHeader: true });
     csv_parser.addListener('data', function(data) {
-        console.log("market csv item parsed");
+        console.log("market csv item parsed.");
         var order = new market_order();
         merge(order, data);
-        console.log("merged item to mongoose model");
-        console.log("saving");
+        console.log("merged item to mongoose model.");
+        console.log("saving.");
         order.save(function(err) {
             if(err) {
                 console.log(err);

@@ -1,13 +1,32 @@
 var csv = require("ya-csv");
 var mongoose = require("mongoose");
 
+var market_order = mongoose.model("market_order", new mongoose.Schema({
+    price           : Number,
+    volRemaining    : Number,
+    typeID          : Number,
+    range           : Number,
+    orderID         : Number,
+    volEntered      : Number,
+    minVolume       : Number, 
+    bid             : Number,
+    issued          : Date,
+    duration        : Date,
+    stationID       : Number,
+    regionID        : Number,
+    solarSystemID   : Number,
+    jumps           : Number,
+}));
+
+
+
 app.post("/api/post/market", function(req, res) {
     console.log("got market upload request");
     var csv_string = req.param("data", null);
     var csv_parser  = csv.createCsvStreamReader({ columnsFromHeader: true });
     csv_parser.addListener('data', function(data) {
         console.log("market csv item parsed");
-        var order = new mongoose.model("market_order");
+        var order = new market_order();
         merge(order, data);
         console.log("merged item to mongoose model");
         console.log("saving");

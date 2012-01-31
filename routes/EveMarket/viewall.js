@@ -16,10 +16,10 @@ app.get("/market/orders/view/all", function(req, res) {
             console.log(err);
             res.send("something went wrong..");
             return;
-        }
-        
-        console.log("all the docs loaded aok. rendering");
-        res.render("./market/showall.ejs", {orders: docs});
-        console.log("page rendered.");
-    );
+        }//
+        //
+        console.log("all the docs loaded aok. rendering");//
+        res.render("./market/showall.ejs", {orders: docs}); //
+        console.log("page rendered."); // rawr
+    });
 });

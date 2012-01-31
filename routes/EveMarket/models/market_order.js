@@ -1,3 +1,4 @@
+var mongoose = require("mongoose");
 mongoose.model("market_order", new mongoose.Schema({
     price           : Number,
     volRemaining    : Number,
@@ -13,9 +14,6 @@ mongoose.model("market_order", new mongoose.Schema({
     regionID        : Number,
     solarSystemID   : Number,
     jumps           : Number,
-    
-    /* These are extra properties, Not coming from the api (Static Data Lookups.) */
-    typeName        : String,
-    regionName      : String,
-    stationName     : String,
 }));
+
+console.log("loaded market_order model in mongoose");

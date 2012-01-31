@@ -17,11 +17,6 @@ market_api.db.MarketOrderSchema = new mongoose.Schema({
     regionID        : Number,
     solarSystemID   : Number,
     jumps           : Number,
-    
-    /* These are extra properties, Not coming from the api (Static Data Lookups.) */
-    typeName        : String,
-    regionName      : String,
-    stationName     : String,
 });
 
 mongoose.model("MarketOrder", market_api.db.MarketOrderSchema);

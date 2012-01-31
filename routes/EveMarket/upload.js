@@ -20,7 +20,7 @@ app.post("/api/post/market", function(req, res) {
             
             console.log("Saved order");
             res.send("ok");
-        });
+        }); //
     });
     
     console.log("initing parser");

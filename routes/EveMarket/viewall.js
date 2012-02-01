@@ -21,7 +21,7 @@ app.get("/market/orders/view/all", function(req, res) {
                 }, 
                 function(err, result) {
                     if(err) {console.log(err); return;}
-                    for(i in docs) {
+                    for(var i in docs) {
                         console.log(docs[i].typeID + " was: " + result[i]);
                         docs[i].item_name = result[i];
                     }

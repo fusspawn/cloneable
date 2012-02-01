@@ -1,20 +1,20 @@
 <div class="page-header">
-    <h1>Market <small> All </small></h1>
+    <h1>Market <small> Show All </small></h1>
 </div>
 <div> 
  <p>
     <table class="condensed"> 
         <thead>
             <tr> 
-                <th>price</th>           
-                <th>volRemaining</th>    
-                <th>typeID</th>          
-                <th>range</th>           
-                <th>orderID</th>  
-                <th>bid</th>
-                <th>stationID</th>
-                <th>solarSystemID</th>
-                <th>jumps</th>      
+                <th>Price</th>           
+                <th>VolRemaining</th>    
+                <th>Item</th>          
+                <th>Range</th>           
+                <th>OrderID</th>  
+                <th>Bid</th>
+                <th>StationID</th>
+                <th>SolarSystemID</th>
+                <th>Jumps</th>      
             </tr>
         </thead>
         <tbody>
@@ -22,7 +22,7 @@
                     <tr>
                         <td> <%= order["price"] %> </td>
                         <td> <%= order["volRemaining"] %> </td>
-                        <td> <%= order["typeID"] %> </td>
+                        <td> <%= order["item_name"] %> </td>
                         <td> <%= order["range"] %> </td>
                         <td> <%= order["orderID"] %> </td> <td> <%= order["bid"] %> </td>
                         <td> <%= order["stationID"] %> </td>

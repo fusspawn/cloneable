@@ -6,7 +6,7 @@ mongoose.model("market_order", new mongoose.Schema({
     orderID         : Number,
     volEntered      : Number,
     minVolume       : Number, 
-    bid             : Number,
+    bid             : Boolean,
     issued          : Date,
     duration        : Date,
     stationID       : Number,

@@ -33,16 +33,3 @@ app.get("/market/orders/view/all", function(req, res) {
         );        
     });
 });
-
-
-function(res, orders) {
-     console.log("all the docs loaded aok. rendering");
-     res.render("./market/showall.ejs", {orders: docs});
-     console.log("page rendered.");    
-}
-
-$a.series(
-    function(docs) {},
-    function(res, orders) {}
-);
-

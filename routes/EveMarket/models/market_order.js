@@ -1,7 +1,14 @@
 mongoose.model("market_order", new mongoose.Schema({
     price           : Number,
     volRemaining    : Number,
-    typeID          : Number,
+    typeID          : {type: Number,
+                        get: function(typeID) {
+                             redis_client.get("ccp.static.type_ids."+typeID, function(err, reply) { 
+                                if(err) return typeID; 
+                                return reply;
+                             });
+                        }
+                      },
     range           : Number,
     orderID         : Number,
     volEntered      : Number,

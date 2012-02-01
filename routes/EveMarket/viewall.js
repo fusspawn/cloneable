@@ -11,25 +11,24 @@ app.get("/market/orders/view/all", function(req, res) {
             return;
         }
         
-        $a.series(
-            function() {
-                console.log("redis lookup on all orderID's");
-                $a.map(docs, function(item, callback) {
+       console.log("redis lookup on all orderID's");
+                $a.map(docs,
+                function(item, callback) {
                     redis_client.get("ccp.static.type_ids."+item.typeID, function(err, response) {
+                        console.log("redis_got:" + response);
                         callback(err, response);
                     });
-                }, function(err, result) {
+                }, 
+                function(err, result) {
                     if(err) {console.log(err); return;}
                     for(i in docs) {
+                        console.log(docs[i].typeID + " was: " + result[i]);
                         docs[i].item_name = result[i];
                     }
-                });
-            },
-            function() {
-                console.log("all the docs loaded aok. rendering");
-                res.render("./market/showall.ejs", {orders: docs});
-                console.log("page rendered.");     
-            }
-        );        
+                    
+                    console.log("all the docs loaded aok. rendering");
+                    res.render("./market/showall.ejs", {orders: docs});
+                    console.log("page rendered."); 
+                });      
     });
 });

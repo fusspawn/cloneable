@@ -1,9 +1,9 @@
 mongoose.model("market_order", new mongoose.Schema({
     price           : Number,
     volRemaining    : Number,
-    typeID          : {type: Number },
+    typeID          : {type:Number},
     range           : Number,
-    orderID         : {type:Number, unique: true},
+    orderID         : {type:Number, unique: true, dropDups: true},
     volEntered      : Number,
     minVolume       : Number, 
     bid             : Boolean,

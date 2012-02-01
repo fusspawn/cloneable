@@ -3,8 +3,10 @@ mongoose.model("market_order", new mongoose.Schema({
     volRemaining    : Number,
     typeID          : {type: Number,
                         get: function(typeID) {
+                             console.log("doing redis_lookup on: "+typeID);
                              redis_client.get("ccp.static.type_ids."+typeID, function(err, reply) { 
-                                if(err) return typeID; 
+                                if(err) return typeID;
+                                console.log("did redis_lookup on: "+typeID + " returned: "+reply);
                                 return reply;
                              });
                         }

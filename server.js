@@ -8,6 +8,7 @@ var loggly = require('loggly');
 var config = { subdomain: "fusspawn" };
 var client = loggly.createClient(config);
 var oldlogger = console.log;
+
 console.log = function(message) {
     oldlogger(message);
     client.log(env['LOGGLY_HTTP_KEY'], message);

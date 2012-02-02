@@ -7,6 +7,7 @@ app.post("/api/post/market", function(req, res) {
     console.log("got market upload request.");
     var csv_string = req.param("data", null);
     var csv_parser  = csv.createCsvStreamReader({ columnsFromHeader: true });
+    
     csv_parser.addListener('data', function(data) {
         console.log("market csv item parsed.");
         var order = new market_order();
@@ -39,6 +40,7 @@ app.post("/api/post/market", function(req, res) {
             
             console.log("Saved order, updating redis lastorders");
             res.send("ok");
+            redis_client.publish("new_market_order", JSON.stringify({id: order._id}));
         }); 
     });
     

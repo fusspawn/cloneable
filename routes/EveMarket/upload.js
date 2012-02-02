@@ -10,38 +10,68 @@ app.post("/api/post/market", function(req, res) {
     
     csv_parser.addListener('data', function(data) {
         console.log("market csv item parsed.");
-        var order = new market_order();
-        merge(order, data);
-        console.log("merged item to mongoose model.");
-        console.log(JSON.stringify(data));
         
-        order.price  = data.price;
-        order.volRemaining = data.volRemaining;
-        order.typeID  = data.typeID;
-        order.range   = data.range;
-        order.orderID = data.orderID;
-        order.volEntered = data.volEntered;
-        order.minVolume = data.minVolume;
-        order.bid = data.bid;
-        order.issued  = data.issues;
-        order.duration = data.duration;
-        order.stationID  = data.stationID;
-        order.regionID = data.regionID;
-        order.solarSystemID  = data.solarSystemID = data.solarSystemID;
-        order.jumps  = data.jumps;
-        
-        console.log("saving.");
-        order.save(function(err) {
+        market_order.findOne({orderID: data.orderID}, function(err, order) {
             if(err) {
-                console.log(err);
-                res.send(err);
-                return;
-            }   
-            
-            console.log("Saved order, updating redis lastorders");
-            res.send("ok");
-            redis_client.publish("new_market_order", JSON.stringify({id: order._id}));
-        }); 
+                    var order = new market_order();
+                    order.price  = data.price;
+                    order.volRemaining = data.volRemaining;
+                    order.typeID  = data.typeID;
+                    order.range   = data.range;
+                    order.orderID = data.orderID;
+                    order.volEntered = data.volEntered;
+                    order.minVolume = data.minVolume;
+                    order.bid = data.bid;
+                    order.issued  = data.issues;
+                    order.duration = data.duration;
+                    order.stationID  = data.stationID;
+                    order.regionID = data.regionID;
+                    order.solarSystemID  = data.solarSystemID = data.solarSystemID;
+                    order.jumps  = data.jumps;
+                    
+                    console.log("saving.");
+                    order.save(function(err) {
+                        if(err) {
+                            console.log(err);
+                            res.send(err);
+                            return;
+                        }   
+                        
+                        console.log("Saved order, updating redis lastorders");
+                        res.send("ok");
+                        redis_client.publish("new_market_order", JSON.stringify({id: order._id}));
+                    }); 
+            } else {
+                    order.price  = data.price;
+                    order.volRemaining = data.volRemaining;
+                    order.typeID  = data.typeID;
+                    order.range   = data.range;
+                    order.orderID = data.orderID;
+                    order.volEntered = data.volEntered;
+                    order.minVolume = data.minVolume;
+                    order.bid = data.bid;
+                    order.issued  = data.issues;
+                    order.duration = data.duration;
+                    order.stationID  = data.stationID;
+                    order.regionID = data.regionID;
+                    order.solarSystemID  = data.solarSystemID = data.solarSystemID;
+                    order.jumps  = data.jumps;
+                    
+                    console.log("saving.");
+                    order.save(function(err) {
+                        if(err) {
+                            console.log(err);
+                            res.send(err);
+                            return;
+                        }   
+                        
+                        console.log("Saved order, updating redis lastorders");
+                        res.send("ok");
+                        redis_client.publish("new_market_order", JSON.stringify({id: order._id}));
+                    });     
+            }
+        });
+       
     });
     
     console.log("initing parser");

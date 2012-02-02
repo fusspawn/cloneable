@@ -3,7 +3,7 @@ mongoose.model("market_order", new mongoose.Schema({
     volRemaining    : Number,
     typeID          : {type:Number},
     range           : Number,
-    orderID         : {type:Number, unique: true, dropDups: true},
+    orderID         : {type:Number},
     volEntered      : Number,
     minVolume       : Number, 
     bid             : {type:Boolean, 

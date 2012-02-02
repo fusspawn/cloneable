@@ -12,7 +12,7 @@ app.post("/api/post/market", function(req, res) {
         console.log("market csv item parsed.");
         
         market_order.findOne({orderID: data.orderID}, function(err, order) {
-            if(err) {
+            if(order == null) {
                     var order = new market_order();
                     order.price  = data.price;
                     order.volRemaining = data.volRemaining;

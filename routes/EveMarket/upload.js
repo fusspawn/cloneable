@@ -9,18 +9,16 @@ app.post("/api/post/market", function(req, res) {
     var csv_parser  = csv.createCsvStreamReader({ columnsFromHeader: true });
     var updated_id = null;
     
-    csv_parser.addListener('end', function() {
-        console.log("parsed all files should be good to push an update now.");
-        setTimeout(function() {
-            update_stats(updated_id);
-        }, 1000);
-        console.log("update scheduled for 1 second.");
-    });
-    
     csv_parser.addListener('data', function(data) {
         console.log("market csv item parsed.");
-        if (updated_id == null)
+        
+        if (updated_id == null) {
             updated_id = data.typeID;
+            setTimeout(function() {
+                update_stats(updated_id);
+            }, 2000);
+            console.log("update scheduled for 2 seconds.");
+        }
         
         market_order.findOne({orderID: data.orderID}, function(err, order) {
             if(order == null) {
@@ -53,7 +51,8 @@ app.post("/api/post/market", function(req, res) {
                             return;
                         }   
                         
-                        console.log("Saved order, updating redis lastorders");
+                        
+                        console.log("new order update!");
                     }); 
             } else {
                     order.price  = data.price;
@@ -83,9 +82,7 @@ app.post("/api/post/market", function(req, res) {
                             return;
                         }   
                         
-                        console.log("Saved order, updating redis lastorders");
-                        console.log("handing new order");
-                        console.log("new order handled");
+                        console.log("new order update!");
                     });
             }
         });

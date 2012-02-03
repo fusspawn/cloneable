@@ -10,7 +10,6 @@ app.get("/market/stats/view", function(req, res) {
                     });
                 },function(err, result) {
                     if(err) {console.log(err); return;}
-            
                     for(var i in docs) {
                         docs[i].item_name = result[i];
                         if(docs[i].highest_buy == 0 || docs[i].lowest_sell == 0 || docs[i].lowest_sell == 99999999999 || docs[i].highest_buy == 0)

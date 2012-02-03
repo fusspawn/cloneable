@@ -15,7 +15,7 @@
         <tbody>
             <% stats.forEach(function(stat) { %>
                     <tr>
-                        <td> <%= stat["item_name"] %> </td>
+                        <td> <a href="CCPEVE.showMarketDetails(<%= stat["typeID"] %>)"> <%= stat["item_name"] %> </a> </td>
                         <td> <%= stat["lowest_sell"] %> </td>
                         <td> <%= stat["highest_buy"] %> </td>
                         <td> <%= stat["profit"] %> </td>

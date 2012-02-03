@@ -130,4 +130,4 @@ function update_stats(orderID) {
             });
         });
     });
-});
+};

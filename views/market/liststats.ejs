@@ -3,7 +3,7 @@
 </div>
 <div> 
  <p>
-    <table> 
+    <table id="res"> 
         <thead>
             <tr> 
                 <th> Item </th>
@@ -25,3 +25,11 @@
     </table>
  </p>
 </div>
+
+<script type="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"> </script>
+<script type="http://autobahn.tablesorter.com/jquery.tablesorter.min.js"> </script>
+<script type="text/javascript">
+    $(function(){
+        $("#res").tablesorter();
+    });
+</script>

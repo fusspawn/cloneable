@@ -9,6 +9,9 @@ app.post("/api/post/market", function(req, res) {
     var csv_parser  = csv.createCsvStreamReader({ columnsFromHeader: true });
     var updated_id = null;
     
+    
+    
+    
     csv_parser.addListener('data', function(data) {
         console.log("market csv item parsed.");
         
@@ -16,8 +19,8 @@ app.post("/api/post/market", function(req, res) {
             updated_id = data.typeID;
             setTimeout(function() {
                 update_stats(updated_id);
-            }, 2000);
-            console.log("update scheduled for 2 seconds.");
+            }, 5000);
+            console.log("reindex on type: "+ updated_id + " set for 5 seconds");
         }
         
         market_order.findOne({orderID: data.orderID}, function(err, order) {
@@ -50,7 +53,6 @@ app.post("/api/post/market", function(req, res) {
                             res.send(err);
                             return;
                         }   
-                        
                         
                         console.log("new order update!");
                     }); 
@@ -92,18 +94,16 @@ app.post("/api/post/market", function(req, res) {
     console.log("initing parser");
     csv_parser.parse(csv_string);
     res.send("ok");
+    console.log("update scheduled for 2 seconds.");
 });
     
 app.post("/api/post/markethistory", function(req, res) {
     var csv_string = req.param("data", null);       
 });
 
-function update_stats(orderID) {
-    market_order.findById(orderID, function(err, order) {
-        if(err) {console.log(err); return;}
-        var type_id = order.typeID;
-        console.log("doing a recalc on typeID: " + type_id);
-        market_order.find({typeID: type_id}, function(err, docs) {
+function update_stats(type_id) {
+    console.log("update started in the background");
+    market_order.find({typeID: type_id}, function(err, docs) {
             if(err) {console.log(err); return;} 
             var buy_highest = 0;
             var sell_lowest = 99999999999;
@@ -146,5 +146,4 @@ function update_stats(orderID) {
                     data.save(function(err) { if(err) console.log(err); });
             });
         });
-    });
 };

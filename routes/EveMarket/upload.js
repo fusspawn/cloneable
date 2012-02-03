@@ -38,8 +38,7 @@ app.post("/api/post/market", function(req, res) {
                         }   
                         
                         console.log("Saved order, updating redis lastorders");
-                        res.send("ok");
-                        redis_client.publish("new_market_order", JSON.stringify({id: order._id}));
+                        new_order_handler.update_stats(order._id);
                     }); 
             } else {
                     order.price  = data.price;
@@ -66,9 +65,10 @@ app.post("/api/post/market", function(req, res) {
                         }   
                         
                         console.log("Saved order, updating redis lastorders");
-                        res.send("ok");
-                        redis_client.publish("new_market_order", JSON.stringify({id: order._id}));
-                    });     
+                        console.log("handing new order");
+                        new_order_handler.update_stats(order._id);
+                        console.log("new order handled");
+                    });
             }
         });
        
@@ -76,6 +76,7 @@ app.post("/api/post/market", function(req, res) {
     
     console.log("initing parser");
     csv_parser.parse(csv_string);
+    res.send("ok");
 });
     
 app.post("/api/post/markethistory", function(req, res) {

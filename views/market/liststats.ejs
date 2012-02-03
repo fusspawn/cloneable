@@ -7,20 +7,16 @@
         <thead>
             <tr> 
                 <th> Item </th>
-                <th> Sell Order ID </th>
                 <th> Sell Price (Lowest) <th>
-                <th> Buy Order ID </th>
-                <th> Buy Price Highest </th>
-                <th> Profix </th>
+                <th> Buy Price (Highest) </th>
+                <th> Profit </th>
             </tr>
         </thead>
         <tbody>
             <% stats.forEach(function(stat) { %>
                     <tr>
                         <td> <%= stat["item_name"] %> </td>
-                        <td> <%= stat["lowest_sell_order_id"] %> </td>
                         <td> <%= stat["lowest_sell"] %> </td>
-                        <td> <%= stat["highest_buy_order_id"] %> </td>
                         <td> <%= stat["highest_buy"] %> </td>
                         <td> <%= stat["profit"] %> </td>
                     </tr>

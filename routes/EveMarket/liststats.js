@@ -13,7 +13,7 @@ app.get("/market/stats/view", function(req, res) {
             
                     for(var i in docs) {
                         docs[i].item_name = result[i];
-                        if(docs[i].highest_buy == 0 || docs[i].lowest_sell == 0)
+                        if(docs[i].highest_buy == 0 || docs[i].lowest_sell == 0 || docs[i].lowest_sell == 99999999999 || docs[i].highest_buy == 0)
                             docs[i].profit = 0;
                         else {
                             docs[i].profit = docs[i].lowest_sell - docs[i].highest_buy;

@@ -17,9 +17,10 @@ app.get("/market/stats/view", function(req, res) {
                             docs[i].profit = 0;
                         else {
                             docs[i].profit = docs[i].lowest_sell - docs[i].highest_buy;
-                            if(docs[i].profit > 50000000)
+                            if(docs[i].profit > 50000000) {
                                 docs[i].profit = 0;
                                 docs[i].item_name = docs[i].item + "(Customised - Order)";
+                            }
                         }
                     }
                     res.render("./market/liststats.ejs", {stats: docs});

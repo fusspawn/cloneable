@@ -1,8 +1,8 @@
 var $stats = mongoose.model("item_stat");
 var $a = require("async");
 
-app.get("./market/view/stats", function(req, res) {
-    console.log("http_request: /market/view/stats");
+app.get("/market/stats/view", function(req, res) {
+    console.log("http_request: /market/stats/view");
     $stats.find({}, function(err, docs) {
          $a.map(docs, 
                 function(item, callback) {
@@ -20,4 +20,4 @@ app.get("./market/view/stats", function(req, res) {
     });
 });
 
-console.log("registered /market/view/stats route");
+console.log("registered /market/stats/view route");

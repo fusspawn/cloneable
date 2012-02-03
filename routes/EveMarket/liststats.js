@@ -12,7 +12,11 @@ app.get("/market/stats/view", function(req, res) {
                     if(err) {console.log(err); return;}
                     for(var i in docs) {
                         docs[i].item_name = result[i];
-                        docs[i].profit = docs[i].lowest_sell - docs[i].highest_buy;
+                        if(docs[i].highest_buy == 0 || docs[i].lowest_sell)
+                            docs[i].profit = 0;
+                        else {
+                            docs[i].profit = docs[i].lowest_sell - docs[i].highest_buy;
+                        }
                     }
                     res.render("./market/liststats.ejs", {stats: docs});
          });         

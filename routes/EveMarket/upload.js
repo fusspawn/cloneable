@@ -21,7 +21,12 @@ app.post("/api/post/market", function(req, res) {
                     order.orderID = data.orderID;
                     order.volEntered = data.volEntered;
                     order.minVolume = data.minVolume;
-                    order.bid = data.bid;
+                    console.log("data.bid was: "+ data.bid);
+                    if(data.bid == "True")
+                        order.bid = true;
+                    else
+                        order.bid = false;
+                        
                     order.issued  = data.issues;
                     order.duration = data.duration;
                     order.stationID  = data.stationID;
@@ -48,7 +53,11 @@ app.post("/api/post/market", function(req, res) {
                     order.orderID = data.orderID;
                     order.volEntered = data.volEntered;
                     order.minVolume = data.minVolume;
-                    order.bid = data.bid;
+                    console.log("data.bid was: "+ data.bid);
+                    if(data.bid == "True")
+                        order.bid = true;
+                    else
+                        order.bid = false;
                     order.issued  = data.issues;
                     order.duration = data.duration;
                     order.stationID  = data.stationID;

@@ -6,15 +6,7 @@ mongoose.model("market_order", new mongoose.Schema({
     orderID         : {type:Number},
     volEntered      : Number,
     minVolume       : Number, 
-    bid             : {type:Boolean, 
-                        set: function(r) {
-                            if(r == "True") {
-                                return true;
-                            } 
-                            if(r == "False") {
-                                return false;
-                            }
-                      }},
+    bid             : Boolean,
     issued          : Date,
     duration        : Date,
     stationID       : Number,

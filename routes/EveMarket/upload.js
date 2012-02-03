@@ -7,12 +7,14 @@ app.post("/api/post/market", function(req, res) {
     var csv_string = req.param("data", null);
     var csv_parser  = csv.createCsvStreamReader({ columnsFromHeader: true });
     var updated_id = null;
+    var station_id = null;
     
     csv_parser.addListener('data', function(data) {
         if (updated_id == null) {
             updated_id = data.typeID;
+            station_id = data.stationID;
             setTimeout(function() {
-                update_stats(updated_id);
+                update_stats_alt(updated_id, station_id);
             }, 5000);console.log("reindex on type: "+ updated_id + " set for 5 seconds");
         }
         
@@ -83,49 +85,82 @@ app.post("/api/post/markethistory", function(req, res) {
     var csv_string = req.param("data", null);       
 });
 
-function update_stats(type_id) {
-    console.log("update started in the background");
-    market_order.find({typeID: type_id}, function(err, docs) {
-            if(err) {console.log(err); return;} 
-            var buy_highest = 0;
-            var sell_lowest = 99999999999;
-            var buy_id;
-            var sell_id;
-            
-            docs.forEach(function(doc) {
-                if(doc.bid) {
-                    if(doc.price > buy_highest) {
-                        buy_highest = doc.price;
-                        buy_id = doc._id;
+
+function update_stats_alt(typeID, stationID) {
+    market_order.find({typeID: typeID, stationID: stationID},
+        function(err, docs) {
+              if(err) { console.log(err); return; }
+              if(docs == null) { console.log("nothing found aborting.."); return; }
+              
+              var lowest_sell_found = null;
+              var highest_buy_found = null;
+              var lowest_sell_order = null;
+              var highest_buy_order = null;
+              
+              docs.forEach(function(doc) {
+                    if(doc.bid) {
+                        if(highest_buy_found == null) {
+                            highest_buy_found = doc.price;
+                            highest_buy_order = doc;
+                        }
+                        if(doc.price > highest_buy_found) {
+                            highest_buy_found = doc.price;
+                            highest_buy_order = doc;
+                        }
                     }
-                }
-                else {
-                    if(doc.price < sell_lowest) {
-                        sell_lowest = doc.price;
-                        sell_id = doc._id;
+                    else {
+                        if(lowest_sell_found == null) {
+                            lowest_sell_found = doc.price;
+                            lowest_sell_order = doc;
+                        }
+                        if(doc.price > lowest_sell_found) {
+                            lowest_sell_found = doc.price;
+                            lowest_sell_order = doc;
+                        }
                     }
-                }
-            });
-            
-            
-            item_stats_collection.findOne({typeID: type_id}, function(err, data) {
-                if(data == null) {
-                    var new_item_stat = new item_stats_collection();
-                    new_item_stat.typeID = type_id;
-                    new_item_stat.highest_buy = buy_highest;
-                    new_item_stat.highest_buy_order_id = buy_id;
-                    new_item_stat.lowest_sell = sell_lowest;
-                    new_item_stat.lowest_sell_order_id = sell_id;
-                    new_item_stat.save(function(err) { if(err) console.log(err); });
+              });
+              
+              // Now we have the highest buy price. and the lowest sell price. lets calculate the profit.
+              if(lowest_sell_found == null
+                    || highest_buy_found == null) {
+                    console.log("could calculate profit for typeID as onesided order");
                     return;
-                }
-                    //Update
-                    data.typeID = type_id;
-                    data.highest_buy = buy_highest;
-                    data.highest_buy_order_id = buy_id;
-                    data.lowest_sell = sell_lowest;
-                    data.lowest_sell_order_id = sell_id;
-                    data.save(function(err) { if(err) console.log(err); });
-            });
-        });
-};
+              }
+              
+              var profit_per_unit = lowest_sell_found - highest_buy_found;
+              redis_client.get("ccp.static.type_ids."+typeID, function(err, type_name) {
+                    if(err) { console.log(err); return; }
+                    item_stats_collection.findOne({typeID: typeID, station_id: stationID}, function(err, doc) {
+                        if(err) { console.log(err); return; }
+                        if(doc == null) {
+                            var item_stat = new item_stats_collection();
+                            item_stat.typeID = typeID;
+                            item_stat.highest_buy = highest_buy_found ;
+                            item_stat.highest_buy_order_id = highest_buy_order._id;
+                            item_stat.lowest_sell = lowest_sell_found;
+                            item_stat.lowest_sell_order_id = lowest_sell_order._id;
+                            item_stat.profit = profit_per_unit;
+                            item_stat.station_id = stationID;
+                            item_stat.item_name = type_name;
+                            item_stat.save(function(err) {
+                                if(err) { console.log(err); return; }
+                                console.log("new profitable item: " + type_name + " profit: " + profit_per_unit);
+                            });
+                        } else {
+                            doc.typeID = typeID;
+                            doc.highest_buy = highest_buy_found ;
+                            doc.highest_buy_order_id = highest_buy_order._id;
+                            doc.lowest_sell = lowest_sell_found;
+                            doc.lowest_sell_order_id = lowest_sell_order._id;
+                            doc.profit = profit_per_unit;
+                            doc.station_id = stationID;
+                            doc.item_name = type_name;
+                            doc.save(function(err) {
+                                if(err) { console.log(err); return; }
+                                console.log("new profitable item: " + type_name + " profit: " + profit_per_unit);
+                            });    
+                        }
+                    });
+              });
+    });
+}

@@ -2,6 +2,7 @@ var $stats = mongoose.model("market_stat");
 var $a = require("async");
 
 app.get("/market/view/stats", function(req, res) {
+    console.log("http_request: /market/view/stats");
     $stats.find({}, function(err, docs) {
          $a.map(docs, 
                 function(item, callback) {
@@ -10,6 +11,7 @@ app.get("/market/view/stats", function(req, res) {
                     });
                 },function(err, result) {
                     if(err) {console.log(err); return;}
+                    console.log("got reponse. Rendering page");
                     for(var i in docs) {
                         docs[i].item_name = result[i];
                     }

@@ -19,7 +19,6 @@ app.get("/market/orders/view/all", function(req, res) {
                 function(err, result) {
                     if(err) {console.log(err); return;}
                     for(var i in docs) {
-                        console.log(docs[i].typeID + " was: " + result[i]);
                         docs[i].item_name = result[i];
                     }
                     res.render("./market/showall.ejs", {orders: docs});

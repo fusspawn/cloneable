@@ -4,7 +4,6 @@ var item_stats_collection = mongoose.model("item_stat");
 
 //
 app.post("/api/post/market", function(req, res) {
-    console.log("got market upload request.");
     var csv_string = req.param("data", null);
     var csv_parser  = csv.createCsvStreamReader({ columnsFromHeader: true });
     var updated_id = null;
@@ -14,8 +13,7 @@ app.post("/api/post/market", function(req, res) {
             updated_id = data.typeID;
             setTimeout(function() {
                 update_stats(updated_id);
-            }, 5000);
-            console.log("reindex on type: "+ updated_id + " set for 5 seconds");
+            }, 5000);console.log("reindex on type: "+ updated_id + " set for 5 seconds");
         }
         
         market_order.findOne({orderID: data.orderID}, function(err, order) {
@@ -28,7 +26,6 @@ app.post("/api/post/market", function(req, res) {
                     order.orderID = data.orderID;
                     order.volEntered = data.volEntered;
                     order.minVolume = data.minVolume;
-                    console.log("data.bid was: "+ data.bid);
                     if(data.bid == "True")
                         order.bid = true;
                     else
@@ -41,7 +38,6 @@ app.post("/api/post/market", function(req, res) {
                     order.solarSystemID  = data.solarSystemID = data.solarSystemID;
                     order.jumps  = data.jumps;
                     
-                    console.log("saving.");
                     order.save(function(err) {
                         if(err) {
                             console.log(err);
@@ -79,7 +75,6 @@ app.post("/api/post/market", function(req, res) {
        
     });
     
-    console.log("initing parser");
     csv_parser.parse(csv_string);
     res.send("ok");
 });

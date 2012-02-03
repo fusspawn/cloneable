@@ -1,4 +1,4 @@
-var $stats = mongoose.model("market_stat");
+var $stats = mongoose.model("item_stat");
 var $a = require("async");
 
 app.get("./market/view/stats", function(req, res) {

@@ -9,12 +9,7 @@ app.post("/api/post/market", function(req, res) {
     var csv_parser  = csv.createCsvStreamReader({ columnsFromHeader: true });
     var updated_id = null;
     
-    
-    
-    
     csv_parser.addListener('data', function(data) {
-        console.log("market csv item parsed.");
-        
         if (updated_id == null) {
             updated_id = data.typeID;
             setTimeout(function() {
@@ -53,8 +48,6 @@ app.post("/api/post/market", function(req, res) {
                             res.send(err);
                             return;
                         }   
-                        
-                        console.log("new order update!");
                     }); 
             } else {
                     order.price  = data.price;
@@ -64,7 +57,6 @@ app.post("/api/post/market", function(req, res) {
                     order.orderID = data.orderID;
                     order.volEntered = data.volEntered;
                     order.minVolume = data.minVolume;
-                    console.log("data.bid was: "+ data.bid);
                     if(data.bid == "True")
                         order.bid = true;
                     else
@@ -75,16 +67,12 @@ app.post("/api/post/market", function(req, res) {
                     order.regionID = data.regionID;
                     order.solarSystemID  = data.solarSystemID = data.solarSystemID;
                     order.jumps  = data.jumps;
-                    
-                    console.log("saving.");
                     order.save(function(err) {
                         if(err) {
                             console.log(err);
                             res.send(err);
                             return;
-                        }   
-                        
-                        console.log("new order update!");
+                        }  
                     });
             }
         });
@@ -94,7 +82,6 @@ app.post("/api/post/market", function(req, res) {
     console.log("initing parser");
     csv_parser.parse(csv_string);
     res.send("ok");
-    console.log("update scheduled for 2 seconds.");
 });
     
 app.post("/api/post/markethistory", function(req, res) {

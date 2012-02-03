@@ -14,6 +14,7 @@ app.get("/market/stats/view", function(req, res) {
                     console.log("got reponse. Rendering page");
                     for(var i in docs) {
                         docs[i].item_name = result[i];
+                        docs[i].profit = docs[i].lowest_sell - docs[i].highest_buy;
                     }
                     res.render("./market/liststats.ejs", {stats: docs});
          });         

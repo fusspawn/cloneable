@@ -123,6 +123,7 @@ function update_stats(orderID) {
             item_stats_collection.findOne({typeID: type_id}, function(err, data) {
                 if(data == null) {
                     var new_item_stat = new item_stats_collection();
+                    new_item_stat.typeID = type_id;
                     new_item_stat.highest_buy = buy_highest;
                     new_item_stat.highest_buy_order_id = buy_id;
                     new_item_stat.lowest_sell = sell_lowest;
@@ -131,6 +132,7 @@ function update_stats(orderID) {
                     return;
                 }
                     //Update
+                    data.typeID = type_id;
                     data.highest_buy = buy_highest;
                     data.highest_buy_order_id = buy_id;
                     data.lowest_sell = sell_lowest;

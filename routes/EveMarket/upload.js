@@ -113,7 +113,7 @@ function update_stats_alt(typeID, stationID) {
                             lowest_sell_found = doc.price;
                             lowest_sell_order = doc;
                         }
-                        if(doc.price > lowest_sell_found) {
+                        if(doc.price < lowest_sell_found) {
                             lowest_sell_found = doc.price;
                             lowest_sell_order = doc;
                         }
